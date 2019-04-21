@@ -1,15 +1,12 @@
-def partition(arr,low=0, high=-1):
-
-    p = (low - 1)
-    pivot = arr[high]
-
+def partition(A, low=0, high=-1):
+    p = low - 1
+    pivot = A[high]
     for i in range(low, high):
-        if pivot < arr[i]:
+        if pivot < A[i]:
             p+= 1
-            arr[p],arr[i] = arr[i],arr[p]
-
+            A[p], A[i] = A[i], A[p]
     p += 1
-    arr[p], arr[high] = arr[high], arr[p]
+    A[p], A[high] = A[high], A[p]
     return p
 # ----------------------------------------------------------------------------------------------------------------------
 def quick_sort(A,low,high):
