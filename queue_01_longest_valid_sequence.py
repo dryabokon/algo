@@ -3,33 +3,26 @@
 # ----------------------------------------------------------------------------------------------------------------------
 def find_valid_substring(A):
 
-	stack = []
-	S = ['0']*len(A)
-	for i in range (0,len(A)):
-		if A[i]=='(': #try to push
-			S[i]='1'
-			stack.append('x')
-		else:#try to pop
-			if len(stack)>0:
-				stack.pop(0)
-				S[i]='1'
+	stack =[-1]
+	longest=0
 
-	seq, longest=0,0
-	for i in range(0, len(A)):
-		if S[i]=='1':
-			seq+=1
-			if seq>longest:
-				longest = seq
+	for i,each in enumerate(A):
+		if each=='(':
+			stack.append(i)
 		else:
-			seq=0
+			stack.pop()
+			if len(stack)==0:
+				stack.append(i)
+			else:
+				longest = max(longest,i-stack[-1])
 
-	return S, longest
+	return longest
 # ----------------------------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
-	A = list('((()))))()()()()')
+	A = list('(((())(((()')
 
-	print(''.join(A))
-	res,len = find_valid_substring(A)
-	print(''.join(res))
+
+	len = find_valid_substring(A)
 	print(len)
+
 

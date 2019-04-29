@@ -1,6 +1,6 @@
 import numpy
 # ----------------------------------------------------------------------------------------------------------------------
-def get_all_permutations(array):
+def get_all_permutations(A):
 
     # 1234
     # 1243
@@ -8,23 +8,24 @@ def get_all_permutations(array):
     # 1342
     # 1432
     # 1423
-    if array.shape[0]==1:
-        return numpy.array([array[0]])
+    if len(A)==1:
+        return [[A[0]]]
 
     result =[]
-    for i in range(0, array.shape[0]):
-        sub_array=numpy.delete(array,i)
+    for i in range(0, len(A)):
+        sub_array = [each for each in A]
+        del(sub_array[i])
         sub_perm = get_all_permutations(sub_array)
         for each in sub_perm:
-            r =numpy.insert(numpy.array(each), 0, array[i])
+            r =[A[i]] + each
             result.append(r)
 
     return result
 # ----------------------------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
 
-    A = numpy.array(list('ABAD'))
+    A = list('1234')
     res = get_all_permutations(A)
     for each in res:
-        print(each)
+        print(''.join(each))
 
