@@ -1,4 +1,5 @@
-import  numpy
+# https://thenoisychannel.com/2011/08/08/retiring-a-great-interview-problem
+import numpy
 # ----------------------------------------------------------------------------------------------------------------------
 # Given a dictionary of words, find if string can be split into words
 # ----------------------------------------------------------------------------------------------------------------------
@@ -51,11 +52,47 @@ def word_break(dictionary,string):
 
     return
 # ----------------------------------------------------------------------------------------------------------------------
+def segment_string(A, dct):
+
+    if A in dct:
+        return A
+
+    for i in range(1, len(A)):
+        prefix = A[:i]
+        if prefix in dct:
+            suffix = A[i:len(A)]
+            segSuffix = segment_string(suffix, dct)
+            if len(segSuffix)>0:
+                return prefix + " " + segSuffix
+    return []
+# ----------------------------------------------------------------------------------------------------------------------
+def segment_string2(A, dct,memorized):
+
+    if A in dct:
+        return A
+
+    if A in memoized:
+        return memoized[A]
+
+    for i in range(1, len(A)):
+
+        prefix = A[:i]
+        if prefix in dct:
+            attempt = segment_string2(A[i:], dct,memorized)
+            if attempt!=[]:
+                memoized[A] = prefix + " " + attempt
+                return prefix + " " + attempt
+
+    memoized[A]= 0
+    return []
+
+# ----------------------------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
     dictionary = ['apple', 'bar', 'bear', 'book', 'dog']
-    string = 'bearbook'
+    string = 'bearbookbearbook'
+    #string ="catsandog"
+    #dictionary  = ["cats", "dog", "sand", "and", "cat"]
 
-    word_break(dictionary, string)
-
-
-
+    memoized = {}
+    res = segment_string2(string,dictionary,memoized)
+    print(res)

@@ -1,3 +1,4 @@
+import numpy
 # You have N eggs, from which floor in a K-floor building you can drop an egg
 # Determine the minimum number of attempts to find the critical floor in the worst case
 # ----------------------------------------------------------------------------------------------------------------------
@@ -34,3 +35,11 @@ if __name__ == '__main__':
 	k_floors = 10
 	res = min_Egg_Attempts_Recursion(n_eggs,k_floors)
 	print(res)
+
+	N, K = 5, 10
+	R = numpy.zeros((N + 1, K + 1), dtype=numpy.int)
+	for n_eggs in range(1, N + 1):
+		for k_floors in range(1, K + 1):
+			R[n_eggs, k_floors] = min_Egg_Attempts_Recursion(n_eggs, k_floors)
+
+	print(R)
