@@ -10,6 +10,7 @@ def LPS(s):
 	A = numpy.eye(N,dtype=numpy.int)
 	max_value=1
 	start,stop=0,0
+
 	for i in range(1,N-1):
 		for step in range(1,min(i,N-1-i)+1):
 			A[i-step,i+step]=A[i-step+1,i+step-1] and s[i-step]==s[i+step]
@@ -40,6 +41,6 @@ def LPS(s):
 # ----------------------------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
 
-	s = 'hhaahahahahaha'
+	s = '1245678876'
 	res = LPS(s)
 	print(res)
