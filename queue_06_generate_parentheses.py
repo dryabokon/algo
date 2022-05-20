@@ -6,7 +6,7 @@ def generate_parentheses(N):
     res = []
 
     while len(q)>0:
-
+        #print(''.join(numpy.array(q)[:,0]))
         element=q.pop()
         if len(element[0])==2*N:
             res.append(element[0])
@@ -27,9 +27,22 @@ def generate_parentheses(N):
 
     return res
 # ----------------------------------------------------------------------------------------------------------------------
+def generate_parentheses2(N):
+
+    if N==1:
+        res = ['()']
+    else:
+        res = []
+        for s in generate_parentheses2(N-1):
+            res.append('('+s)
+            res.append('()'+s)
+            res.append(s+'()')
+
+    return res
+# ----------------------------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
 
-    res = generate_parentheses(2)
+    res = generate_parentheses(4)
     for each in res:
         print(each)
 

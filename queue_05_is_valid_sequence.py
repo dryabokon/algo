@@ -1,24 +1,23 @@
-#
+A = list('()((())))()(')
 # ----------------------------------------------------------------------------------------------------------------------
-def is_valid_substring(A):
+def is_valid_substring2(A):
+	def is_pair(a,b):return (a=='(' and b==')')or(a=='[' and b==']')or(a=='{' and b=='}')
+	queue = [A[0]]
+	for a in A[1:]:
+		if len(queue)==0:
+			queue.append(a)
+			continue
 
-	q=[]
-	for element in A:
-		if len(q)==0:
-			q.append(element)
+		if is_pair(queue[-1],a):
+			queue.pop()
 		else:
-			candidate = q[-1]
-			if (candidate=='{' and element=='}') or (candidate=='(' and element==')') or (candidate=='[' and element==']'):
-				q.pop()
-			else:
-				q.append(element)
+			queue.append(a)
 
-
-	return len(q)==0
+	return len(queue)==0
 # ----------------------------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
-	A = list('()')
+	A = list('()((())())()')
 
-	res = is_valid_substring(A)
+	res = is_valid_substring2(A)
 	print(res)
 

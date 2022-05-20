@@ -1,11 +1,8 @@
+# Longest Palindromic Subsequence
+# ----------------------------------------------------------------------------------------------------------------------
 import numpy
 # ----------------------------------------------------------------------------------------------------------------------
-# Longest Palindromic Subsequence
 def LPS(s):
-	'''
-	:type s: str
-    :rtype: str
-	'''
 	N = len(s)
 	A = numpy.eye(N,dtype=numpy.int)
 	max_value=1

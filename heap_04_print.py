@@ -1,4 +1,5 @@
 import numpy
+#from heap_01_build import is_heap_topmax,build_heap
 # ----------------------------------------------------------------------------------------------------------------------
 def print_heap_as_tree_rotated(A,i=0,space=0):
     space_len = 4
@@ -59,11 +60,24 @@ def print_heap_as_tree(heap, i=0, space=0):
 
     for each in A:
         print('  '.join(each))
+
+    print()
     return
 # ----------------------------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
-    A = list('99987692847856')
+    A = list('1999')
+    #res = is_heap(A)
+    #print(res)
+    build_heap(A)
     print_heap_as_tree(A)
+
+    res = is_heap_topmax(A)
+    print()
+    print(''.join(A))
+
+    print()
+    print(res)
+
 
 
 

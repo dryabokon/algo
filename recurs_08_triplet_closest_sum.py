@@ -1,34 +1,28 @@
-import numpy
 # ----------------------------------------------------------------------------------------------------------------------
-def triplet_closest_S(A, S=0, elements=3):
+def triplet_closest_S(A, S=0):
 
-	N = len(A)
-	if elements==1:
-		res =[]
-		for i in range(0, N):
-			res.append([A[i]])
-		return res
+	A.sort()
+	best_sum = A[0] + A[1] + A[2]
+	for i in range(len(A) - 2):
+		j, k = i + 1, len(A) - 1
+		while j < k:
+			sum = A[i] + A[j] + A[k]
+			if sum == S:
+				return sum
 
-	triplets = []
-	for i in range(0,N):
-		sub_array = A[i+1:]
-		sub_triplets = triplet_closest_S(sub_array, 0, elements - 1)
-		for each in sub_triplets:
-			triplets.append([A[i]]+each)
+			if abs(sum - S) < abs(best_sum - S):
+				best_sum = sum
 
+			if sum < S:
+				j += 1
+			elif sum > S:
+				k -= 1
 
-	if elements==3:
-		best, value = 0, abs((sum(triplets[0]) - S))
-		for i in range(1,len(triplets)):
-			if abs((sum(triplets[i])-S))<value:
-				best=i
-				value = abs((sum(triplets[i])-S))
-		return triplets[best]
-	else:
-		return triplets
+	return best_sum
+
 # ----------------------------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
-	A = numpy.array(list('476123'),dtype=numpy.int)
 
-	res = triplet_closest_S(A, 18)
+	A = [-1,2,1,-4]
+	res = triplet_closest_S(A,1)
 	print(res)

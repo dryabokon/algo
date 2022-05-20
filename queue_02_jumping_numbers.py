@@ -1,34 +1,29 @@
-#  Find jumping numbers <= X.  Example: 7, 8987 and 4343456 are Jumping numbers but 796 and 89098 are not.
+# Find jumping numbers <= X.  Example: 7, 8987 and 4343456 are Jumping numbers but 796 and 89098 are not.
+# A number is called as a Jumping Number if all adjacent digits in it differ by 1
 # ----------------------------------------------------------------------------------------------------------------------
-def find_jumping_num(x):
+def find_jumping_num2(x):
 
-	queue=[0,1,2,3,4,5,6,7,8,9]
-	res=[]
+	res = []
+	queue = list('123456789')
 
-	while (len(queue)>0):
-		num = queue.pop(0)
+	while len(queue)>0:
+		value = int(queue.pop())
+		if value>x:continue
+		res.append(value)
+		last_digit = value%10
+		if last_digit >= 1:
+			queue.append(value*10+last_digit-1)
 
-		if num <= x and num>0:
-			res.append(str(num))
+		if last_digit <= 8:
+			queue.append(value*10+last_digit+1)
 
-			last_dig = num % 10
-
-			if last_dig == 0:
-				queue.append((num * 10) + 1)
-
-			elif last_dig == 9:
-				queue.append((num * 10) + 8)
-
-			else:
-				queue.append((num * 10) + (last_dig - 1))
-				queue.append((num * 10) + (last_dig + 1))
+	res.sort()
 
 	return res
-
 # ----------------------------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
 
-	res = find_jumping_num(34)
+	res = find_jumping_num2(234)
 	for each in res:
 		print(each)
 

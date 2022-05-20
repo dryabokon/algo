@@ -1,57 +1,22 @@
 import numpy
+import hash_01_two_elements_summup
 # ----------------------------------------------------------------------------------------------------------------------
-def exist_triplet_summ_S(A,S=0,elements=3):
+def triplets_given_S_unique2(A,S):
 
-	N = A.shape[0]
-	if elements==1:
-		for i in range(0, N):
-			if A[i]==S:
-				return True,[S]
-		return False,[]
+	res = []
+	for i,a in enumerate(A):
+		A_temp = numpy.delete(A, i)
+		temp_res = hash_01_two_elements_summup.two_sum_unique(A_temp, S-a)
+		for each in temp_res:
+			if each[0]>=a and each[1]>=a and each[0]>=each[1]:
+				res.append((a,each[0],each[1]))
 
-	res = False
-	triplet = []
-	for i in range(0,N):
-		sub_array = numpy.delete(A,i)
-		target = S-A[i]
-		sub_res, sub_triplet = exist_triplet_summ_S(sub_array, target, elements - 1)
-		if sub_res==True:
-			res = True
-			triplet = [A[i]]+sub_triplet
-
-	return res, triplet
-
-# ----------------------------------------------------------------------------------------------------------------------
-def all_unique_triplets_summ_S(A, S=0, elements=3):
-
-	N = len(A)
-	if elements==1:
-		for each in set(A):
-			if each==S:
-				return [[S]]
-		return [[]]
-
-	triplets = []
-	dct ={}
-	for i, each in enumerate(A):
-		dct[each]=i
-
-	for each in dct:
-		element = each
-		sub_array = numpy.delete(A,dct[each])
-		sub_array = sub_array[numpy.where(sub_array<=element)]
-
-		target = S-element
-		sub_triplets = all_unique_triplets_summ_S(sub_array, target, elements - 1)
-		for each in sub_triplets:
-			if len(each)==elements-1:
-				triplets.append([element]+each)
-
-	return triplets
+	res = [r for r in set(res)]
+	return res
 # ----------------------------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
 	#A = numpy.array(list('476123'),dtype=numpy.int)
-	#A = [-1, 0, 1, 2, -1, -4]
+
 	A = [82597,-9243,62390,83030,-97960,-26521,-61011,83390,-38677,12333,75987,46091,83794,19355,-71037,-6242,-28801,
 	     324,1202,-90885,-2989,-95597,-34333,35528,5680,89093,-90606,50360,-29393,-27012,53313,65213,99818,-82405,
 	     -41661,-3333,-51952,72135,-1523,26377,74685,96992,92263,15929,5467,-99555,-43348,-41689,-60383,-3990,32165,
@@ -69,9 +34,9 @@ if __name__ == '__main__':
 	     20,3063,-49426,28152,-97329,6086,86035,-88743,35241,44249,19927,-10660,89404,24179,-26621,-6511,57745,-28750,
 	     96340,-97160,-97822,-49979,52307,79462,94273,-24808,77104,9255,-83057,77655,21361,55956,-9096,48599,-40490,
 	     -55107,2689,29608,20497,66834,-34678,23553,-81400,-66630,-96321,-34499,-12957,-20564,25610,-4322,-58462,20801]
-	#res, triplet = exist_triplet_summ_S(A,17)
-	#print(triplet)
 
-	res = all_unique_triplets_summ_S(A, 0)
+	A = [-1, 0, 1, 2, -1, -4]
+
+	res = triplets_given_S_unique2(A, 0)
 	for each in res:
 		print(each)

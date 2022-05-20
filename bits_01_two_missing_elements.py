@@ -1,17 +1,18 @@
 def find_missing_element(A):
 
-	S1=0
-	for each in A:S1^=ord(each)
+	xor_value=0
+	for each in A:
+		xor_value^=(each)
 
-	S2=0
-	for i in range(ord(min(A)),ord(max(A))+1):S2^=i
+	res = (xor_value)
 
-	return chr(S1^S2)
+	return res
 # ----------------------------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
-	A = list('12345789')
+	A = [int(a) for a in list('2345679')]
 
-	print(''.join(A))
+
 	res = find_missing_element(A)
+
 	print(res)
 

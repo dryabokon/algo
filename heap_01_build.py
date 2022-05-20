@@ -1,3 +1,4 @@
+from heap_04_print import print_heap_as_tree
 # ----------------------------------------------------------------------------------------------------------------------
 def heapify(A, i):
     N = len(A)
@@ -17,8 +18,11 @@ def heapify(A, i):
     return
 # ----------------------------------------------------------------------------------------------------------------------
 def build_heap(A):
+
+
     i=int(len(A)/2)
     while i>=0:
+        print_heap_as_tree(A)
         heapify(A, i)
         i-=1
 
@@ -60,34 +64,27 @@ def heap_delete(A,value):
 
     return
 # ----------------------------------------------------------------------------------------------------------------------
-def is_maxheap(A,i=0):
+def is_heap_topmax(A,i=0):
 
-    res_root = True
-    res_left = True
-    res_right = True
-    N = len(A)
-    left = (i+1)*2-1
+    left  = (i+1)*2-1
     right = (i+1)*2+1-1
 
-    if left < N:
-        if A[i] < A[left]:
-            res_root = False
-        else:
-            res_left = is_maxheap(A,left)
 
-    if right < N:
-        if A[i] < A[right]:
-            res_root = False
-        else:
-            res_right = is_maxheap(A,right)
+    if left < len(A):
+        is_leftheap = (A[i] > A[left]) and is_heap_topmax(A,left)
+    else:
+        is_leftheap = True
 
-    return res_root and res_left and res_right
+    if right < len(A):
+        is_rightheap  = (A[i] > A[right]) and is_heap_topmax(A,right)
+    else:
+        is_rightheap = True
+
+    return is_leftheap and is_rightheap
 # ----------------------------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
     A = list('4158345633')
 
     build_heap(A)
     heap_delete(A,1)
-    is_maxheap(A)
-
 

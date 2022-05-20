@@ -1,28 +1,33 @@
-# Given a string S consisting of opening and closing parenthesis '(' and ')'.
-# Find length of the longest valid parenthesis substring.
+# Given a string S consisting of opening and closing parenthesis '(' and ')' f
+# find length of the longest valid parenthesis substring.
 # ----------------------------------------------------------------------------------------------------------------------
 def find_valid_substring(A):
 
 	stack =[-1]
-	longest=0
+	longest_length,res=0,None
 
-	for i,each in enumerate(A):
-		if each=='(':
+	for i,a in enumerate(A):
+		print(stack)
+		if a=='(':
 			stack.append(i)
 		else:
 			stack.pop()
-			if len(stack)==0:
-				stack.append(i)
+			if len(stack)>0:
+				valid_length = i - stack[-1]
+				if valid_length>longest_length:
+					longest_length = valid_length
+					res = A[i - valid_length + 1:i + 1]
 			else:
-				longest = max(longest,i-stack[-1])
+				stack.append(i)
 
-	return longest
+	return longest_length,res
 # ----------------------------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
-	A = list('(((())(((()')
+	A = list(')))((((((())()()')
 
 
-	len = find_valid_substring(A)
+	len,res = find_valid_substring(A)
 	print(len)
+	print(''.join(res))
 
 

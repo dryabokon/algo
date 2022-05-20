@@ -1,29 +1,32 @@
+# Longest Unique Subsequence
 import numpy
 # ----------------------------------------------------------------------------------------------------------------------
-# Longest Unique Subsequence
-def LUS(s):
-	N = len(s)
+def LUS2(A):
 
-	longest,i,j = 0,0,0
-	set={}
-	result = None
 
-	while (i<N and j<N):
-		if s[j] not in set:
-			set[s[j]]=0
-			j+=1
-			if j-i>longest:
-				longest = j - i
-				result = s[i:j]
+	N = len(A)
+	start,stop = 0,0
+	set = {A[start]:0}
+	res = A[0]
+
+	while (start<N and stop<N-1):
+		next = A[stop+1]
+		if next in set:
+			start+=1
+			stop = start
+			set = {A[start]:0}
 		else:
-			del set[s[i]]
-			i+=1
+			stop += 1
+			set[next]=0
+			if stop-start+1>len(res):
+				res=A[start:stop+1]
 
-	return len(result)
+
+	return res
 # ----------------------------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
 
-	A = numpy.array(list('12223464fghjhlw533423454345'))
+	A = numpy.array(list('1222364fghjhlw533423454345'))
 
-	res = LUS(A)
+	res = LUS2(A)
 	print(''.join(res))

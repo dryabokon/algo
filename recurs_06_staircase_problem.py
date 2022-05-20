@@ -1,46 +1,27 @@
 # staircase problem
-def count_number_of_ways(N,steps=[1,2]):
-
-	C = 0
-
-	for each in steps:
-		if each ==N:
-			C+=1
-
-	for each in steps:
-		option=N-each
-		if option>0:
-			s = count_number_of_ways(option,steps)
-			C+=s
-
-	return C
+import numpy
 # ----------------------------------------------------------------------------------------------------------------------
-def list_number_of_ways(N,steps=[1,2]):
-	C = 0
-	ways = []
+def get_number_of_ways2(N,steps=[1,2]):
 
-	for each in steps:
-		if each ==N:
-			C+=1
-			ways.append([N])
+	res = []
+	for step in steps:
+		if step==N:
+			res.append([step])
 
+		if N-step>=0:
+			res_temp = get_number_of_ways2(N - step, steps)
+			for each in res_temp:
+				res.append([step] + each)
 
-	for each in steps:
-		option=N-each
-		if option>0:
-			s, options = list_number_of_ways(option,steps)
-			C+=s
-			for option in options:
-				ways.append([each] + option)
-
-	return C, ways
+	return res
 # ----------------------------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
 
 
-	n_ways =count_number_of_ways(4)
-	print(n_ways)
+	res = get_number_of_ways2(5)
+	for each in res:
+		print(each)
 
-	n_ways,ways = list_number_of_ways(4)
+	print()
+	n_ways = count_number_of_ways2(5)
 	print(n_ways)
-

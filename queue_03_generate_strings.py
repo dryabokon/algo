@@ -40,19 +40,24 @@ def generate_from_string(list_of_symbols):
 # ----------------------------------------------------------------------------------------------------------------------
 def genarate_queue(queue):
 
+    res = []
+
     while (len(queue) > 0):
         value = queue.pop()
         if '{' in value:
             next_gen = generate_from_string(list(value))
             for each in next_gen:queue.append(each)
         else:
-            print(value)
-    return
+            res.append(value)
+
+    return res
 # ----------------------------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
 
     A = list('abc{123}de{XY}{+-}')
-    genarate_queue([A])
+    res = genarate_queue([A])
+    for r in res:
+        print(r)
 
 
 
